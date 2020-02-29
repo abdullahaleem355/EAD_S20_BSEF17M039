@@ -1,0 +1,15 @@
+.f-div{
+    background-color:white;
+    color:black;
+    height:5rem;
+    border-radius:3%;
+}
+
+.clicked-f-div{
+    background-color:white;
+    color:black;
+    height:5rem;
+    border-radius:3%;
+    border-style:solid;
+    border-color: #ff056d;
+}
