@@ -1,0 +1,9 @@
+/.vs
+/UMS.BAL/obj
+/UMS.BAL/bin
+/UMS.DAL/obj
+/UMS.DAL/bin
+/UMS.Entities/obj
+/UMS.Entities/bin
+/UserManagementSystem/obj
+/UserManagementSystem/bin
