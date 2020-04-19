@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<nav class="navbar navbar-expand-md login-nav-style">
+    <a class="navbar-brand text-white font-weight-bold" href="#"> Google Drive Replica </a>
+    <button class="btn btn-danger btn-sm ml-auto" id="login-btn"> Log In to Existing Account</button>
+</nav>
+
+<div id="login-form-spacing">
+
+    <div style="text-align:left;">
+
+
+        <div class="container">
+            <form action=@Url.Content("~/User/RegisterUser") method="POST">
+                <div class="row mt-5">
+                    <div class="col-sm-6 offset-sm-3" style="color:white;">
+                        <h3>Create A New Account !</h3>
+                        <h3 class="mt-4">Just fill this form with appropriate information.</h3>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-6 offset-sm-3">
+                        <input type="text" class="form-control" required placeholder="Enter Your Name" name="user-name" value="@ViewBag.UserName" />
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-sm-6 offset-sm-3">
+                        <input type="text" class="form-control" required placeholder="Enter Login Id" name="user-login-id" value="@ViewBag.LoginId" />
+                    </div>
+                </div>
+
+                @{
+                    if (ViewBag.UniqueIdError != null)
+                    {
+                        <div class="row mt-5">
+                            <div class="col-sm-6 offset-sm-3">
+                                <p style="color:red;">@ViewBag.UniqueIdError</p>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <div class="row mt-5">
+                    <div class="col-sm-6 offset-sm-3">
+                        <input type="password" class="form-control" required placeholder="Enter Password" name="user-passwd" />
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-sm-6 offset-sm-3">
+                        <input type="password" class="form-control" required placeholder="Confirm Password" name="user-confirm-passwd" />
+                    </div>
+                </div>
+
+                @{
+                    if (ViewBag.PasswordMatchError != null)
+                    {
+                        <div class="row mt-5">
+                            <div class="col-sm-6 offset-sm-3">
+                                <p style="color:red;">@ViewBag.PasswordMatchError</p>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <div class="row mt-5 mb-5">
+                    <div class="col-sm-6 offset-sm-3">
+                        <input class="btn btn-success btn-block" type="submit" name="signup-btn-submit" value="Sign Up" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+        $('#login-btn').click(function(){
+            window.location.href = 'Login';
+        });
+
+
+</script>
+

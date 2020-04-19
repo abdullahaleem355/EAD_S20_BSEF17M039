@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<nav class="navbar navbar-expand-md login-nav-style">
+    <a class="navbar-brand text-white font-weight-bold" href="#"> Google Drive Replica </a>
+    <button class="btn btn-danger btn-sm ml-auto" id="signup-btn"> Create a new account</button>
+</nav>
+
+<div class="text-center">
+
+    <div class="text-left">
+
+
+        <div class="container">
+            <form action=@Url.Content("~/User/ValidateUser") method="POST">
+                <div class="row mt-5">
+                    <div class="col-sm-6 offset-sm-3">
+                        <h3 style="color:white;">Log in to existing account.</h3>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-6 offset-sm-3">
+                        <input type="text" class="form-control" required placeholder="Enter Login Id" name="user-login-name" value="@ViewBag.LoginId" />
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-sm-6 offset-sm-3">
+                        <input type="password" class="form-control" required placeholder="Enter Password" name="user-password" />
+                        <div>
+                        </div>
+
+                        @{ if (ViewBag.LoginError != null)
+                            {
+
+                                <div class="row mt-5">
+                                    <div class="col-sm-6 offset-sm-3">
+                                        <p style="color:red;">@ViewBag.LoginError</p>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        @{ if (ViewBag.EmptyFields != null)
+                            {
+
+                                <div class="row mt-5">
+                                    <div class="col-sm-6 offset-sm-3">
+                                        <p style="color:red;">@ViewBag.EmptyFields</p>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        <input class="btn btn-success btn-block mt-5" type="submit" name="login-btn-submit" value="Login" />
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+        $('#signup-btn').click(function(){
+            window.location.href = 'SignUp';
+        });
+
+
+</script>
+

@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Content/generic-stylesheet.css">
+    <link rel="stylesheet" href="~/Content/home-stylesheet.css">
+    <link rel="stylesheet" href="~/Content/bootstrap-js-jquery-files/bootstrap.min.css">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @{
+        if (ViewBag.ParentFolder == null)
+        {
+            @Scripts.Render("~/bundles/InitFolders")
+        }
+    }
+</head>
+
+<body id="back-theme">
+
+    <nav class="navbar navbar-expand-md login-nav-style">
+        <a class="navbar-brand text-white font-weight-bold" href="#"> Google Drive Replica </a>
+        <div class="ml-auto">
+            <button class="btn btn-danger btn-sm" onclick="window.location.href = 'Login'">Logout</button>
+        </div>
+    </nav>
+
+    @RenderBody()
+    @Scripts.Render("~/bundles/Folders")
+</body>
+</html>
