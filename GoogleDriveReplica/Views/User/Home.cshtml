@@ -1,8 +1,48 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Home_Layout.cshtml";
 
+}
+
+@{
+    if (ViewBag.ParentFolder == null)
+    {
+           <script>
+               $(document).ready(function () {
+                   sessionStorage.jwttoken = '@ViewBag.Token';
+                   var basePath = "https://localhost:44393/";
+                   var dataToSend = { "Action": "getFolderNames", "Pfolder": null, "NewFolderName": null };
+              
+                var settings = {
+                type: "POST",
+                dataType: "json",
+                url: basePath + 'api/FolderData/FolderInfo',
+                data: dataToSend,
+                headers: {
+                           'Authorization': 'Bearer ' + sessionStorage.jwttoken
+                         },
+                success: displayFolders
+            };
+            $.ajax(settings);
+
+    function displayFolders(res){
+        // response recieved {parent's id, folderlist}
+        $('row.folder-row').remove();
+        var rowDiv = $('<div>').attr("class", "row folder-row");
+        for(var i = 0; i < res.folderlist.length; i++){
+            var folderDiv = $('<div>');
+			var folderObj = res.folderlist[i];
+            $(folderDiv).attr("class", "f-div col-sm-3 mt-4 ml-5").attr("id", folderObj.FolderID);
+            $(folderDiv).html('<h6>' + folderObj.FolderName + '</h6>');
+            $(rowDiv).append(folderDiv);
+        }
+        $('.folder-panel').attr("id", res.id);  // We'll give current folder's id to main folder-panel-div to remember current directory.
+        $('.folder-panel').append(rowDiv); 
+    } 
+});
+
+            </script>
+         }
 }
 
 
@@ -35,3 +75,90 @@
 
     </div>
 </div>
+
+
+        <script>
+
+             isDblClick = false;  // to handle single click and dbclick behaviour we used timeout. 
+                $('.folder-panel').on('click', '.f-div', function() {
+                    var fId = $(this).attr("id");
+                    setTimeout(function(){
+                    if (!isDblClick){
+                        $('#' + fId).siblings().attr("class", "f-div col-sm-3 mt-4 ml-5");
+                        $('#' + fId).attr("class","clicked-f-div col-sm-3 mt-4 ml-5");
+                    } 
+                   }, 20);
+                });  
+               
+                $('.folder-panel').on('dblclick', '.f-div, .clicked-f-div', function() {
+					
+					var basePath = "https://localhost:44393/";
+                    isDblClick = true;
+                    var dataToSend = {"Action": "getFolderNames" , "Pfolder" : $(this).attr("id"), "NewFolderName" : null}; // as we've given parent folder id to folder-panel div.
+                    var settings = {
+                        type: "POST",
+                        dataType: "json",
+                        url: basePath + 'api/FolderData/FolderInfo',
+                        data: dataToSend,
+                         headers: {
+                           'Authorization': 'Bearer ' + sessionStorage.jwttoken
+                         },
+                        success: displayChildFolders
+                    };
+                    $.ajax(settings);
+
+                    function displayChildFolders(res){
+                         // response recieved {parent's id, folderlist
+                        $('div.folder-row').remove();
+                        var rowDiv = $('<div>').attr("class", "row folder-row");
+                        for(var i = 0; i < res.folderlist.length; i++){
+                            var folderDiv = $('<div>');
+							var folderObj = res.folderlist[i];
+                            $(folderDiv).attr("class", "f-div col-sm-3 mt-4 ml-5").attr("id", folderObj.FolderID);
+                            $(folderDiv).html('<h6>' + folderObj.FolderName + '</h6>');
+                            $(rowDiv).append(folderDiv);
+                    }
+                        $('.folder-panel').attr("id", res.id);  // now the dbclicked folder becomes the parent folder, so we set it's id to folder-panel div.
+                        $('.folder-panel').append(rowDiv); 
+                    }
+                    setTimeout(function() {
+                    isDblClick = false;
+                    }, 20);
+                });
+        </script>    
+
+        <script>
+            $('#create-new-folder').click(function(){ 
+	
+	        var basePath = "https://localhost:44393/";                                                                
+            // as folder-panel div has parent folder id as its id.
+            var dataToSend = {"Action": "createFolder" ,"Pfolder" : $('.folder-panel').attr("id") ,"NewFolderName" : $('#new-folder-name').val()};
+            var settings = {
+            type: "POST",
+            dataType: "json",
+            url: basePath + 'api/FolderData/FolderInfo',
+            data: dataToSend,
+            headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.jwttoken
+                         },
+            success: addNewFolder
+            };
+            $.ajax(settings);
+        });
+
+        function addNewFolder(res){
+            if(res.errorMsg){
+                alert(res.errorMsg);
+            }
+            else{
+                // true response we recieved is [{id of newly created folder, name of newly created folder}].
+                var folderDiv = $('<div>');
+                $(folderDiv).attr("class", "f-div col-sm-3 mt-4 ml-5").attr("id", res.id);
+                $(folderDiv).html('<h6>' + res.newfoldername + '</h6>');
+                $('.folder-row').append(folderDiv);
+            }
+        }
+
+        </script>
+    
+

@@ -1,9 +1,11 @@
 $(document).ready(function(){
-    var dataToSend = {"action": "getFolderNames" , "p-folder" : null};
+	
+	var basePath = "https://localhost:44393/";
+    var dataToSend = {"Action": "getFolderNames" , "Pfolder" : null , "NewFolderName" : null};
     var settings = {
         type: "POST",
         dataType: "json",
-        url: '/User/FolderInfo',
+        url: basePath + 'api/FolderData/FolderInfo',
         data: dataToSend,
         success: displayFolders
     };

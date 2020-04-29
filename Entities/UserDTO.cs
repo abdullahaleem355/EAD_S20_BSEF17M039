@@ -14,5 +14,7 @@ namespace Entities
 
         public String Name { set; get; }
 
+        public String Token { set; get; }
+
     }
 }

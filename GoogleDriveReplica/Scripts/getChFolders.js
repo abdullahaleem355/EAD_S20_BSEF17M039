@@ -10,12 +10,14 @@
                 });  
                
                 $('.folder-panel').on('dblclick', '.f-div, .clicked-f-div', function() {
+					
+					var basePath = "https://localhost:44393/";
                     isDblClick = true;
-                    var dataToSend = {"action": "getFolderNames" , "p-folder" : $(this).attr("id")}; // as we've given parent folder id to folder-panel div.
+                    var dataToSend = {"Action": "getFolderNames" , "Pfolder" : $(this).attr("id"), "NewFolderName" : null}; // as we've given parent folder id to folder-panel div.
                     var settings = {
                         type: "POST",
                         dataType: "json",
-                        url: '/User/FolderInfo',
+                        url: basePath + 'api/FolderData/FolderInfo',
                         data: dataToSend,
                         success: displayChildFolders
                     };

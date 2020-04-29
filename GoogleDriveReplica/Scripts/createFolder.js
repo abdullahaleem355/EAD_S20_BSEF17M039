@@ -1,10 +1,12 @@
-$('#create-new-folder').click(function(){                                                                 
+$('#create-new-folder').click(function(){ 
+	
+	var basePath = "https://localhost:44393/";                                                                
     // as folder-panel div has parent folder id as its id.
-    var dataToSend = {"action": "createFolder" , "new-folder-name":$('#new-folder-name').val(),"p-folder" : $('.folder-panel').attr("id")};
+    var dataToSend = {"Action": "createFolder" ,"Pfolder" : $('.folder-panel').attr("id") ,"NewFolderName" : $('#new-folder-name').val()};
     var settings = {
     type: "POST",
     dataType: "json",
-    url: '/User/FolderInfo',
+    url: basePath + 'api/FolderData/FolderInfo',
     data: dataToSend,
     success: addNewFolder
     };

@@ -8,7 +8,7 @@ namespace GoogleDriveReplica
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -26,12 +26,12 @@ namespace GoogleDriveReplica
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/Folders").Include(
-                      "~/Scripts/getChFolders.js",
-                      "~/Scripts/createFolder.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/Folders").Include(
+            //          "~/Scripts/getChFolders.js",
+            //          "~/Scripts/createFolder.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/InitFolders").Include(
-                      "~/Scripts/getInitFolders.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/InitFolders").Include(
+            //          "~/Scripts/getInitFolders.js"));
         }
     }
 }

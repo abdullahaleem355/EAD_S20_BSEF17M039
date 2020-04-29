@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDR.DAL", "GDR.DAL\GDR.DAL.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDR.BAL", "GDR.BAL\GDR.BAL.csproj", "{BEA39E20-638D-48F7-ABD1-4FB6EEB4B74D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriveFoldersAPI", "DriveFoldersAPI\DriveFoldersAPI.csproj", "{7D589736-6A3D-48AD-BDCB-65277069350D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenGenerator", "TokenGenerator\TokenGenerator.csproj", "{38C18BAF-8D48-4C38-BCB4-EDA1F38C7706}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{BEA39E20-638D-48F7-ABD1-4FB6EEB4B74D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEA39E20-638D-48F7-ABD1-4FB6EEB4B74D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEA39E20-638D-48F7-ABD1-4FB6EEB4B74D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D589736-6A3D-48AD-BDCB-65277069350D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D589736-6A3D-48AD-BDCB-65277069350D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D589736-6A3D-48AD-BDCB-65277069350D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D589736-6A3D-48AD-BDCB-65277069350D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38C18BAF-8D48-4C38-BCB4-EDA1F38C7706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38C18BAF-8D48-4C38-BCB4-EDA1F38C7706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38C18BAF-8D48-4C38-BCB4-EDA1F38C7706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38C18BAF-8D48-4C38-BCB4-EDA1F38C7706}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

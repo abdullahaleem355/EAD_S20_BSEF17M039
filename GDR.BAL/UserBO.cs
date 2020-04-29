@@ -1,4 +1,5 @@
-﻿using GDR.DAL;
+﻿using Entities;
+using GDR.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace GDR.BAL
         {
             return UserDAO.DoesUserExist(pLogin);
         }
-        public static Boolean ValidateUser(String pLogin, String pPassword)
+        public static UserDTO ValidateUser(String pLogin, String pPassword)
         {
             return UserDAO.ValidateUser(pLogin, pPassword);
         }

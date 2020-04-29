@@ -96,10 +96,11 @@ namespace GoogleDriveReplica.Controllers
                 TempData["EmptyFields"] = "Fields must not be empty";
                 return Redirect("~/User/Login");
             }
-            if (UserBO.ValidateUser(login, password))
+            UserDTO dto = UserBO.ValidateUser(login, password);
+            if (dto != null)
             {
-                UserDTO dto = new UserDTO();
-                dto.Login = login;
+                var token = TokenGenerator.JWTHelper.GenerateToken(dto.Login, dto.Password);
+                dto.Token = token;
                 SessionManager.User = dto;
                 TempData["PFolder"] = null;
                 return Redirect("~/User/Home");
@@ -107,7 +108,7 @@ namespace GoogleDriveReplica.Controllers
             else
             {
                 TempData["LoginError"] = "Username or Password must be incorrect.";
-                TempData["LoginId"] = login;
+                TempData["LoginId"] = login;        
                 return Redirect("~/User/Login");
             }
         }
@@ -120,80 +121,10 @@ namespace GoogleDriveReplica.Controllers
                 return Redirect("~/User/Login");
             }
             ViewBag.ParentFolder = TempData["PFolder"];
+            var dto = SessionManager.User;
+            ViewBag.Token = dto.Token;
             return View();
         }
-
-        [HttpPost]
-        public JsonResult FolderInfo()
-        {
-            if (SessionManager.IsValidUser)
-            {
-                if (Request["action"] == "getFolderNames")
-                {
-                    String PfName = null;
-                    if (Request["p-folder"] != null)
-                        PfName = Request["p-folder"];
-                    List<FolderDTO> folderlist = FolderBO.GetChildFolders(PfName);
-                    if (String.IsNullOrEmpty(PfName))
-                    {
-                        var data = new
-                        {
-                            id = 0,
-                            folderlist
-                        };
-                        return Json(data, JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        var data = new
-                        {
-                            id = PfName,
-                            folderlist
-                        };
-                        return Json(data, JsonRequestBehavior.AllowGet);
-                    }
-                   
-                }
-
-                else if (Request["action"] == "createFolder")
-                {
-                    if (String.IsNullOrEmpty(Request["new-folder-name"]))
-                    {
-                        var error = new
-                        {
-                            errorMsg = "Folder name is mandatory!"
-                        };
-                        return Json(error, JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        String FolderName = Request["new-folder-name"];
-                        String PFolder = Request["p-folder"];
-                        FolderDTO dto = FolderBO.CreateFolder(FolderName, PFolder);
-                        if(dto.FolderID == -1) // if already exists, id must have -1.
-                        {
-                            var error = new
-                            {
-                                errorMsg = "Folder name must be unique!"
-                            };
-                            return Json(error, JsonRequestBehavior.AllowGet);
-                        }
-
-                        var data = new
-                        {
-                            id = dto.FolderID,
-                            newfoldername = dto.FolderName
-                        };
-                        return Json(data, JsonRequestBehavior.AllowGet);
-                    }
-                }
-                return Json("Invalid hit", JsonRequestBehavior.AllowGet);
-
-            }
-            else
-                return Json("Un-authorized hit! (No User logged in).", JsonRequestBehavior.AllowGet);
-        }
-
     }
 
 }

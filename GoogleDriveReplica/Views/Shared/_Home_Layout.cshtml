@@ -13,12 +13,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
-   @{  
-       if (ViewBag.ParentFolder == null)
-       {
-           @Scripts.Render("~/bundles/InitFolders")
-       }
-   }
 </head>
 
 <body id="back-theme">
@@ -31,6 +25,8 @@
     </nav>
 
     @RenderBody()
-    @Scripts.Render("~/bundles/Folders")
+
 </body>
+
+   
 </html>

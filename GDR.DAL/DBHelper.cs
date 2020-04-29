@@ -9,7 +9,9 @@ namespace GDR.DAL
 {
     public class DBHelper : IDisposable
     {
-        String _connStr = System.Configuration.ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
+        String _connStr = "Data Source=.\\SQLEXPRESS2014;Initial Catalog = Assignment5; User Id = sa; Password=PakistanZindabad;";
+        /*System.Configuration.ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;*/
+
         SqlConnection _conn = null;
 
         public DBHelper()
